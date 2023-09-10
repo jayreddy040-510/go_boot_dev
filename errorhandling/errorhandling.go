@@ -3,12 +3,12 @@ package errorhandling
 import "fmt"
 
 type number interface {
-    int | float32
+    int | float64
 }
 
 type divideError struct {
-    divisor number
-    dividend number
+    divisor interface{}
+    dividend interface{}
 }
 
 func (d divideError) Error() string {
@@ -30,5 +30,8 @@ func divide[n number](dividend, divisor n) (n, error) {
 }
 
 func RunErrorHandlingDemo() {
-    
+    fmt.Println(divide(22.4, 45))
+    fmt.Println(divide(22, 13))
+    fmt.Println(divide(22, 11))
+    fmt.Println(divide(13, 0))
 }
