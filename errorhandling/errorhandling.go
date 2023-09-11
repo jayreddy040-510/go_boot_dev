@@ -6,12 +6,12 @@ type number interface {
     int | float64
 }
 
-type divideError struct {
-    divisor interface{}
-    dividend interface{}
+type divideError[n number] struct {
+    divisor n
+    dividend n
 }
 
-func (d divideError) Error() string {
+func (d divideError[number]) Error() string {
     return fmt.Sprintf(
         "%v can't be divided by %v",
         d.dividend,
@@ -21,7 +21,7 @@ func (d divideError) Error() string {
 
 func divide[n number](dividend, divisor n) (n, error) {
    if divisor == 0 {
-       return 0, divideError{
+       return 0, divideError[n]{
         divisor: divisor,
         dividend: dividend,
         }
